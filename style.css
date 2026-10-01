@@ -1,41 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap');
+
 :root {
-  --bg-main: #f8fafc;
-  --panel-bg: #ffffff;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --border: #e2e8f0;
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --danger: #ef4444;
-  --danger-hover: #dc2626;
-  --badge-bg: #e0f2fe;
-  --badge-text: #0369a1;
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  /* Cyber Black & Neon Terminal Palette */
+  --bg-main: #05080d;
+  --panel-bg: #090e17;
+  --text-main: #00ff66;
+  --text-muted: #4e8265;
+  --border: #00ff6633;
+  --border-bright: #00ff6688;
+  --primary: #00ff66;
+  --primary-hover: #00cc52;
+  --primary-glow: rgba(0, 255, 102, 0.25);
+  --danger: #ff0055;
+  --danger-hover: #d60047;
+  --danger-glow: rgba(255, 0, 85, 0.3);
+  --badge-bg: #002b11;
+  --badge-text: #00ff66;
+  --scanline: rgba(0, 255, 102, 0.03);
+  --shadow: 0 0 20px rgba(0, 255, 102, 0.08);
 }
 
 [data-theme="dark"] {
-  --bg-main: #0b1329;
-  --panel-bg: #1e293b;
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --border: #334155;
-  --primary: #3b82f6;
-  --primary-hover: #60a5fa;
-  --badge-bg: #1e3a8a;
-  --badge-text: #93c5fd;
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  /* Extra stealth mode / Deep dark cyber red */
+  --bg-main: #030407;
+  --panel-bg: #080a10;
+  --text-main: #00f0ff;
+  --text-muted: #41687c;
+  --border: #00f0ff33;
+  --border-bright: #00f0ff88;
+  --primary: #00f0ff;
+  --primary-hover: #00c4d1;
+  --primary-glow: rgba(0, 240, 255, 0.25);
+  --badge-bg: #00222b;
+  --badge-text: #00f0ff;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  transition: all 0.2s ease-in-out;
 }
 
 body {
   background-color: var(--bg-main);
+  background-image: 
+    linear-gradient(var(--scanline) 50%, transparent 50%),
+    radial-gradient(ellipse at 50% 0%, #00ff660d 0%, transparent 70%);
+  background-size: 100% 4px, 100% 100%;
   color: var(--text-main);
   line-height: 1.5;
   min-height: 100vh;
@@ -47,11 +60,23 @@ body {
   margin: 0 auto;
 }
 
-/* Header */
+/* Terminal Header */
 .app-header {
   background: var(--panel-bg);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-bright);
   padding: 1.2rem 0;
+  box-shadow: 0 4px 20px var(--primary-glow);
+  position: relative;
+}
+
+.app-header::before {
+  content: "SYS_STATUS: ACTIVE [NODE_CONNECTED]";
+  position: absolute;
+  top: 4px;
+  left: 5%;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
 }
 
 .header-container {
@@ -61,19 +86,28 @@ body {
 }
 
 .header-container h1 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 10px var(--primary-glow);
+}
+
+.header-container h1::before {
+  content: "root@sec-terminal:~# ";
+  color: var(--text-muted);
+  font-weight: 400;
 }
 
 .header-container p {
   color: var(--text-muted);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
 }
 
 /* Layout */
 .main-layout {
   display: grid;
-  grid-template-columns: 340px 1fr;
+  grid-template-columns: 360px 1fr;
   gap: 1.5rem;
   margin-top: 2rem;
   margin-bottom: 3rem;
@@ -88,44 +122,68 @@ body {
 .card.panel {
   background: var(--panel-bg);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 4px;
   padding: 1.5rem;
   box-shadow: var(--shadow);
+  position: relative;
+}
+
+.card.panel::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid var(--primary);
+  border-left: 2px solid var(--primary);
 }
 
 /* Form Styles */
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
 }
 
 label {
   display: block;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+label::before {
+  content: "> ";
+  color: var(--primary);
 }
 
 input, select {
   width: 100%;
   padding: 0.65rem 0.8rem;
   border: 1px solid var(--border);
-  border-radius: 6px;
-  background: var(--panel-bg);
+  border-radius: 4px;
+  background: #020508;
   color: var(--text-main);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  outline: none;
 }
 
 input:focus, select:focus {
-  outline: 2px solid var(--primary);
+  border-color: var(--primary);
+  box-shadow: 0 0 10px var(--primary-glow);
 }
 
 .btn {
-  padding: 0.65rem 1rem;
-  border-radius: 6px;
-  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 4px;
+  border: 1px solid transparent;
   font-weight: 600;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .w-full {
@@ -133,17 +191,27 @@ input:focus, select:focus {
 }
 
 .btn-primary {
-  background: var(--primary);
-  color: #fff;
+  background: #002b11;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  box-shadow: 0 0 12px var(--primary-glow);
 }
 
 .btn-primary:hover {
-  background: var(--primary-hover);
+  background: var(--primary);
+  color: #000000;
+  font-weight: 700;
+  box-shadow: 0 0 20px var(--primary);
 }
 
 .btn-secondary {
   background: transparent;
   border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.btn-secondary:hover {
+  border-color: var(--primary);
   color: var(--text-main);
 }
 
@@ -151,16 +219,17 @@ input:focus, select:focus {
   background: transparent;
   border: 1px solid var(--danger);
   color: var(--danger);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   padding: 0.3rem 0.65rem;
 }
 
 .btn-danger:hover {
   background: var(--danger);
   color: #ffffff;
+  box-shadow: 0 0 12px var(--danger-glow);
 }
 
-/* User List Section */
+/* Target & Operative List Section */
 .list-header {
   display: flex;
   justify-content: space-between;
@@ -168,71 +237,87 @@ input:focus, select:focus {
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 1.5rem;
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 1rem;
 }
 
 .badge {
   display: inline-block;
   background: var(--badge-bg);
+  border: 1px solid var(--primary);
   color: var(--badge-text);
-  font-size: 0.8rem;
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 2px;
   font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .search-box {
-  width: 220px;
+  width: 240px;
   padding: 0.5rem 0.75rem;
 }
 
 /* Cards Grid */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1.25rem;
 }
 
 .contact-card {
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 1.25rem;
-  background: var(--panel-bg);
+  background: #020508;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
+}
+
+.contact-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 15px var(--primary-glow);
+  transform: translateY(-2px);
 }
 
 .card-top {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.85rem;
   margin-bottom: 1rem;
 }
 
 .avatar {
   width: 44px;
   height: 44px;
-  border-radius: 50%;
-  background: var(--badge-bg);
-  color: var(--badge-text);
+  border-radius: 4px;
+  background: #001a0a;
+  border: 1px solid var(--primary);
+  color: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  text-shadow: 0 0 8px var(--primary);
 }
 
 .card-top h3 {
-  font-size: 1rem;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
 }
 
 .card-role {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
+  display: block;
 }
 
 .card-details p {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   margin-bottom: 0.35rem;
   color: var(--text-muted);
   word-break: break-all;
@@ -240,18 +325,22 @@ input:focus, select:focus {
 
 .card-details strong {
   color: var(--text-main);
+  font-weight: 600;
 }
 
 .card-actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: 1rem;
+  margin-top: 1.2rem;
+  border-top: 1px dotted var(--border);
+  padding-top: 0.75rem;
 }
 
 .empty-state {
   text-align: center;
   padding: 2.5rem 1rem;
   color: var(--text-muted);
+  font-style: italic;
 }
 
 .hidden {
