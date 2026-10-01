@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Cards SPA - Kameshwar S</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="app-header">
+    <div class="container header-container">
+      <div>
+        <h1>Directory SPA</h1>
+        <p>Interactive Contact Management System</p>
+      </div>
+      <button id="themeToggleBtn" class="btn btn-secondary">🌙 Dark Mode</button>
+    </div>
+  </header>
+
+  <!-- Main Application Layout -->
+  <main class="container main-layout">
+    
+    <!-- Contact Form Component (Left / Top) -->
+    <aside class="form-wrapper">
+      <div class="card panel">
+        <h2>Add New Contact</h2>
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="contactName">Full Name *</label>
+            <input type="text" id="contactName" placeholder="e.g. John Doe" required />
+          </div>
+
+          <div class="form-group">
+            <label for="contactEmail">Email Address *</label>
+            <input type="email" id="contactEmail" placeholder="e.g. john@example.com" required />
+          </div>
+
+          <div class="form-group">
+            <label for="contactPhone">Phone Number *</label>
+            <input type="tel" id="contactPhone" placeholder="e.g. +91 98765 43210" required />
+          </div>
+
+          <div class="form-group">
+            <label for="contactRole">Role / Position *</label>
+            <select id="contactRole">
+              <option value="Lead Developer">Lead Developer</option>
+              <option value="Frontend Engineer">Frontend Engineer</option>
+              <option value="Backend Engineer">Backend Engineer</option>
+              <option value="UI/UX Designer">UI/UX Designer</option>
+              <option value="Project Manager">Project Manager</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-full">Create Contact Card</button>
+        </form>
+      </div>
+    </aside>
+
+    <!-- UserList Component (Right / Main) -->
+    <section class="list-wrapper">
+      <div class="card panel">
+        <div class="list-header">
+          <div>
+            <h2>Active Contacts</h2>
+            <span id="contactCountBadge" class="badge">0 Total</span>
+          </div>
+          <input type="text" id="searchInput" placeholder="Search contacts..." class="search-box" />
+        </div>
+
+        <!-- Dynamic Container for Contact Cards -->
+        <div id="userListContainer" class="cards-grid">
+          <!-- Contact cards will be dynamically injected here -->
+        </div>
+
+        <div id="emptyState" class="empty-state hidden">
+          <p>No contacts found matching your criteria.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
